@@ -5,15 +5,12 @@ This repository provides a step-by-step and reproducible pipeline for evaluating
 - **12-lead ECG setting**
 - **Single-lead ECG setting** (using **Lead II** with zero-padding)
 
-This README is written as a beginner-friendly guide so that you can start from **zero** and fully reproduce the results.
 
 ---
 
-## 1. What this repository does
+## 1. Workflow
 
 This project evaluates the pretrained **ECG-FM** model on **MIMIC-IV-ECG** data.
-
-Workflow:
 
 1. Load ECG waveform data  
 2. Run ECG-FM inference  
@@ -27,8 +24,9 @@ Workflow:
 ## 2. Files in this repository
 
 - `tutorial_12lead.ipynb` → 12-lead ECG inference  
-- `tutorial_1lead.ipynb` → single-lead ECG inference  
-- `requirements.txt` → environment dependencies  
+- `tutorial_1lead.ipynb` → single-lead ECG inference
+- `create_10k_test_data.ipynb` → labeler and create dataset
+- `requirements.txt` → environment dependencies
 - `README.md` → documentation  
 
 ---
@@ -40,7 +38,7 @@ Recommended: Python 3.10
 
 ---
 
-## 4. Step 1 — Clone this repository
+## 4. Clone this repository
 
 ```bash
 git clone https://github.com/AHA-DS-Analytics/ECG-FM-exploration.git
@@ -49,7 +47,7 @@ cd ECG-FM-exploration
 
 ---
 
-## 5. Step 2 — Create environment
+## 5. Create environment
 
 ```bash
 conda create -n ecgfm python=3.10 -y
@@ -58,7 +56,7 @@ conda activate ecgfm
 
 ---
 
-## 6. Step 3 — Install dependencies
+## 6. Install dependencies
 
 ### Install from requirements.txt
 
@@ -68,7 +66,7 @@ pip install -r requirements.txt
 
 ---
 
-## 7. Step 4 — Install ECG-FM and fairseq
+## 7. Install ECG-FM and fairseq
 
 ECG-FM depends on **fairseq-based infrastructure**, so installation must follow their pipeline.
 
@@ -89,7 +87,7 @@ pip install -e .
 
 ---
 
-### 7.3 Install fairseq (IMPORTANT)
+### 7.3 Install fairseq
 
 ECG-FM relies on `fairseq-signals`.
 
@@ -103,23 +101,7 @@ pip install -e .
 
 ---
 
-### 7.4 Install additional required package
-
-```bash
-pip install ecg-transform==0.1.3
-```
-
----
-
-### 7.5 Go back to project
-
-```bash
-cd ../ECG-FM-exploration
-```
-
----
-
-## 8. Step 5 — Download dataset
+## 8. Download dataset
 
 Download MIMIC-IV-ECG:
 
@@ -137,91 +119,21 @@ files/
 ```
 
 ---
-
-## 9. Step 6 — Folder structure
+## 9. Run Labeler
 
 ```
-your_workspace/
-├── ECG-FM-exploration/
-├── ecg-fm/
-├── fairseq-signals/
-└── mimic-iv-ecg/
-    └── files/
+create_10k_test_data.ipynb
 ```
+
+- Selects **10,000 ECG records** from MIMIC-IV-ECG  
+- Uses ECG-FM labeler to generate labels  
+- Prepares dataset for inference
+- You can then run the tutorial_1lead.ipynb and tutorial_12lead.ipynb after this step
+
 
 ---
 
-## 10. Step 7 — Launch notebook
-
-```bash
-cd ECG-FM-exploration
-jupyter notebook
-```
-
----
-
-## 11. Run 12-lead tutorial
-
-Open:
-
-```
-tutorial_12lead.ipynb
-```
-
----
-
-## 12. Run single-lead tutorial
-
-Open:
-
-```
-tutorial_1lead.ipynb
-```
-
----
-
-## 13. Labels
-
-Labels are generated using ECG-FM labeler:
-
-```
-ecg-fm/labeler
-```
-
----
-
-## 14. Single-lead setting
-
-ECG-FM expects 12 leads.
-
-We simulate single-lead input by:
-
-- keeping **Lead II**
-- setting other leads to zero
-
----
-
-## 15. Troubleshooting
-
-### Missing fairseq
-Reinstall:
-```bash
-pip install -e fairseq-signals
-```
-
-### Model download fails
-Check:
-- internet connection
-- Hugging Face access
-
-### Missing packages
-```bash
-pip install <package>
-```
-
----
-
-## 16. References
+## 10. References
 
 ECG-FM:  
 https://github.com/bowang-lab/ecg-fm  
@@ -231,34 +143,4 @@ https://physionet.org/content/mimic-iv-ecg/1.0/
 
 ---
 
-## Quick Start
 
-```bash
-git clone https://github.com/AHA-DS-Analytics/ECG-FM-exploration.git
-cd ECG-FM-exploration
-
-conda create -n ecgfm python=3.10 -y
-conda activate ecgfm
-
-pip install -r requirements.txt
-
-git clone https://github.com/bowang-lab/ecg-fm.git
-git clone https://github.com/Jwoo5/fairseq-signals.git
-
-cd fairseq-signals
-pip install -e .
-
-cd ../ecg-fm
-pip install -e .
-
-cd ../ECG-FM-exploration
-jupyter notebook
-```
-
----
-
-## Notes
-
-- This repo is for **inference only**
-- Uses **Lead II** for single-lead experiment
-- Requires PhysioNet access
