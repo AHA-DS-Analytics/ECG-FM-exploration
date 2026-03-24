@@ -136,7 +136,7 @@ create_10k_test_data.ipynb
 ## 10. References
 
 ECG-FM:  
-[https://github.com/bowang-lab/ecg-fm  
+[https://arxiv.org/pdf/2408.05178
 ](https://arxiv.org/pdf/2408.05178)
 MIMIC-IV-ECG:  
 https://physionet.org/content/mimic-iv-ecg/1.0/  
