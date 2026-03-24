@@ -1,5 +1,5 @@
 # ECG-FM-exploration
-This repository provides a reproducible pipeline for evaluating the ECG foundation model (ECG-FM) on the MIMIC-IV-ECG dataset under different input configurations (single-lead vs. 12-lead).
+This repository provides a reproducible pipeline for evaluating the ECG foundation model (ECG-FM) on the MIMIC-IV-ECG dataset under single-lead and 12-lead ECGs.
 
 # Download Model (ECG-FM)
 https://github.com/bowang-lab/ecg-fm/tree/main
